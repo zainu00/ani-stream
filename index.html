@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANI-STREAM | Ad-Free Premium Anime</title>
+  <script src="https://tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://plyr.io" />
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased select-none">
+
+  <!-- Main Sticky Desktop Navigation Bar -->
+  <nav class="flex items-center justify-between px-6 py-4 bg-zinc-900/90 backdrop-blur border-b border-zinc-800 sticky top-0 z-40">
+    <div class="flex items-center gap-8">
+      <div class="text-2xl font-black text-amber-500 tracking-tighter">ANI-<span class="text-white">STREAM</span></div>
+      <div class="hidden md:flex items-center gap-6 text-sm font-medium text-zinc-400">
+        <button onclick="filterType('all')" class="hover:text-white transition-colors cursor-pointer">Home</button>
+        <button onclick="filterType('tv')" class="hover:text-white transition-colors cursor-pointer">TV Series</button>
+        <button onclick="filterType('movie')" class="hover:text-white transition-colors cursor-pointer">Movies</button>
+      </div>
+    </div>
+    
+    <!-- Search Bar and Status Controls -->
+    <div class="flex items-center gap-4 w-1/2 max-w-md">
+      <input type="text" id="search-input" placeholder="Search anime without ads..." class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-amber-500 text-white transition-all">
+      <button id="premium-status-btn" onclick="openRedeemModal()" class="whitespace-nowrap bg-amber-500 text-zinc-950 font-bold px-4 py-2 rounded-lg text-xs hover:bg-amber-400 shadow-lg shadow-amber-500/20 transition-all cursor-pointer">✨ UPGRADE</button>
+    </div>
+  </nav>
+
+  <!-- Hero Spotlight Showcase -->
+  <header class="relative h-[55vh] flex items-end p-8 bg-gradient-to-t from-zinc-950 via-zinc-950/30 to-transparent bg-cover bg-center" style="background-image: url('https://unsplash.com');">
+    <div class="max-w-2xl relative z-10">
+      <span class="bg-amber-500 text-zinc-950 text-[10px] uppercase px-2 py-0.5 rounded font-black tracking-widest">ZERO ADS</span>
+      <h1 class="text-4xl md:text-5xl font-black mt-2 mb-3 tracking-tight">Stream Free, Think Premium</h1>
+      <p class="text-zinc-400 text-sm leading-relaxed mb-6">Welcome to ANI-STREAM. Search your favorite catalog, browse details, and explore content seamlessly. Unlock premium badges using local code distribution systems.</p>
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-zinc-950/80 via-transparent to-transparent"></div>
+  </header>
+
+  <!-- Catalog Section -->
+  <main class="p-6">
+    <div class="flex items-center justify-between mb-6">
+      <h2 id="section-title" class="text-xl font-bold tracking-tight border-l-4 border-amber-500 pl-3">Trending Library</h2>
+      <div id="badge-container" class="hidden bg-amber-500/10 border border-amber-500/30 text-amber-400 font-bold px-3 py-1 rounded-full text-xs animate-pulse">👑 Premium Active</div>
+    </div>
+    <div id="anime-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <!-- Media Cards Inject Dynamically Here -->
+    </div>
+  </main>
+
+  <!-- Redeem Code Overlay Modal -->
+  <div id="redeem-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-2xl relative">
+      <button onclick="closeRedeemModal()" class="absolute top-4 right-4 text-zinc-500 hover:text-white font-bold cursor-pointer">✕</button>
+      <h3 class="text-lg font-black text-white mb-2">Redeem Premium Access</h3>
+      <p class="text-zinc-400 text-xs mb-4">Enter a valid operational pass code to clear status tiers and activate your premium structural account dashboard.</p>
+      <div class="space-y-3">
+        <input type="text" id="coupon-code" placeholder="Enter code (e.g., ANISTREAM2026)" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-amber-500 text-white uppercase font-mono tracking-wider">
+        <button onclick="validateCouponCode()" class="w-full bg-amber-500 text-zinc-950 font-black py-2.5 rounded-lg text-sm hover:bg-amber-400 transition-all cursor-pointer">Activate System Pass</button>
+        <p id="redeem-message" class="text-xs text-center font-medium min-h-[16px]"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Universal Modular Video Media Player Frame Overlay -->
+  <div id="video-modal" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 hidden">
+    <div class="w-full max-w-4xl bg-zinc-900 rounded-xl overflow-hidden shadow-2xl relative border border-zinc-800">
+      <button id="close-video" class="absolute top-4 right-4 z-50 bg-black/60 text-white hover:bg-zinc-800 px-3 py-1.5 rounded-md text-xs font-bold transition-all cursor-pointer">✕ Close Screen</button>
+      <div class="aspect-video">
+        <video id="player" playsinline controls class="w-full h-full"></video>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://plyr.io"></script>
+  <script src="app.js"></script>
+</body>
+</html>
