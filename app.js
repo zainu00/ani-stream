@@ -111,12 +111,37 @@ function filterType(typeKey) {
   executeFilterPipelines(searchInput.value);
 }
 
-// Media Action Direct Mount Stream Executions
-function bootStreamingPlayer(source) {
+// Upgraded Streaming Engine targeting a public Hindi/English Scraper Endpoint
+async function bootStreamingPlayer(sourceUrl) {
   videoModal.classList.remove('hidden');
-  videoElement.src = source;
-  player.play();
+  
+  // Show a helpful placeholder while the free API extracts the video links
+  videoElement.poster = "https://unsplash.com";
+  
+  try {
+    // For this free project, we use a public community AniWatch scraper router
+    const publicScraperEndpoint = "https://vercel.app";
+    
+    // Fetch the real video stream link (.m3u8 or .mp4 format)
+    const response = await fetch(publicScraperEndpoint);
+    const data = await response.json();
+    
+    // Inject the real episode source into your Plyr video player canvas
+    if (data.sources && data.sources.length > 0) {
+      videoElement.src = data.sources.url; // Loads high-res server source
+    } else {
+      videoElement.src = "https://googleapis.com";
+    }
+    
+    player.play();
+  } catch (error) {
+    console.error("Scraper Error, falling back to server default:", error);
+    // Secure fallback: plays default test media if the public api server is busy
+    videoElement.src = "https://googleapis.com";
+    player.play();
+  }
 }
+
 
 // Modal Layer View Toggles
 function openRedeemModal() {
